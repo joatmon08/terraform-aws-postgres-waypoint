@@ -18,10 +18,6 @@ provider "aws" {
   }
 }
 
-run "setup" {
-  command = apply
-}
-
 run "database" {
   command = plan
 
@@ -39,6 +35,10 @@ run "database" {
     condition     = aws_db_instance.database.manage_master_user_password == null
     error_message = "Database password should be stored in Vault and not managed by AWS"
   }
+}
+
+run "setup" {
+  command = apply
 
   assert {
     condition     = aws_db_instance.database.status == "available"
@@ -50,5 +50,3 @@ run "database" {
     error_message = "Database service not registered in Consul"
   }
 }
-
-## Boundary has no data sources

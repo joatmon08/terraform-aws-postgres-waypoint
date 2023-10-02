@@ -26,20 +26,20 @@ data "terraform_remote_state" "infrastructure" {
   }
 }
 
-# data "terraform_remote_state" "boundary" {
-#   backend = "remote"
-#   config = {
-#     organization = var.tfc_organization
-#     workspaces = {
-#       name = var.tfc_workspace_boundary
-#     }
-#   }
-# }
+data "terraform_remote_state" "boundary" {
+  backend = "remote"
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
+      name = var.tfc_workspace_boundary
+    }
+  }
+}
 
 locals {
-  # boundary_address  = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_endpoint
-  # boundary_username = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_username
-  # boundary_password = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_password
+  boundary_address  = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_endpoint
+  boundary_username = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_username
+  boundary_password = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_password
 
   consul_address    = data.terraform_remote_state.infrastructure.outputs.hcp_consul_public_address
   consul_token      = data.terraform_remote_state.infrastructure.outputs.hcp_consul_token
@@ -49,7 +49,7 @@ locals {
   vault_namespace = data.terraform_remote_state.infrastructure.outputs.hcp_vault_namespace
   vault_token     = data.terraform_remote_state.infrastructure.outputs.hcp_vault_token
 
-  # boundary_scope_id = data.terraform_remote_state.boundary.outputs.products_infra_scope_id
+  boundary_scope_id = data.terraform_remote_state.boundary.outputs.products_infra_scope_id
 }
 
 variable "postgres_db_version" {

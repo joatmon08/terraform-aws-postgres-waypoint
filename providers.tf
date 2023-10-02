@@ -25,11 +25,15 @@ terraform {
   }
 }
 
-# provider "boundary" {
-#   addr                   = local.boundary_address
-#   auth_method_login_name = local.boundary_username
-#   auth_method_password   = local.boundary_password
-# }
+provider "aws" {}
+
+provider "hcp" {}
+
+provider "boundary" {
+  addr                   = local.boundary_address
+  auth_method_login_name = local.boundary_username
+  auth_method_password   = local.boundary_password
+}
 
 provider "consul" {
   address    = local.consul_address
