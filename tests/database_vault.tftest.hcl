@@ -11,7 +11,7 @@ provider "aws" {
       Business_Unit = "modules"
       Environment   = "dev"
       Automation    = "terraform"
-      Repo          = "terraform-aws-postgres"
+      Repo          = "terraform-aws-postgres-waypoint"
     }
   }
 }
