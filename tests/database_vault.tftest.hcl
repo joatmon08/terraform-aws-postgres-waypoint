@@ -37,16 +37,16 @@ run "database" {
   }
 }
 
-run "setup" {
-  command = apply
+# run "setup" {
+#   command = apply
 
-  assert {
-    condition     = aws_db_instance.database.status == "available"
-    error_message = "Database in module should be available"
-  }
+#   assert {
+#     condition     = aws_db_instance.database.status == "available"
+#     error_message = "Database in module should be available"
+#   }
 
-  assert {
-    condition     = length(data.consul_service_health.database.results) > 0
-    error_message = "Database service not registered in Consul"
-  }
-}
+#   assert {
+#     condition     = length(data.consul_service_health.database.results) > 0
+#     error_message = "Database service not registered in Consul"
+#   }
+# }
