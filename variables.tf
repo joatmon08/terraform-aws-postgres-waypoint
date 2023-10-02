@@ -13,7 +13,7 @@ variable "tfc_workspace_infrastructure" {
 variable "tfc_workspace_boundary" {
   type        = string
   description = "TFC Workspace with Boundary resources"
-  default     = "boundary"
+  default     = "boundary-setup"
 }
 
 data "terraform_remote_state" "infrastructure" {

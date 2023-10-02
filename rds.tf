@@ -1,7 +1,7 @@
 data "aws_security_group" "database" {
-  tags = merge(local.tags, {
+  tags = {
     Purpose = "database"
-  })
+  }
 }
 
 resource "random_pet" "database" {
