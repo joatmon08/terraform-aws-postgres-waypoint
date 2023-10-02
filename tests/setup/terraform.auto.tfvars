@@ -9,5 +9,5 @@ tags = {
   Environment   = "dev"
   Automation    = "terraform"
   Business_Unit = "modules"
-  Repo          = "terraform-aws-postgres"
+  Repo          = "terraform-aws-postgres-waypoint"
 }
