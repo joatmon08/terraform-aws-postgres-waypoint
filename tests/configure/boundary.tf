@@ -1,6 +1,6 @@
 resource "boundary_scope" "org" {
   scope_id                 = "global"
-  name                     = data.terraform_remote_state.setup.outputs.name
+  name                     = data.terraform_remote_state.infrastructure.outputs.name
   description              = "HashiCups scope"
   auto_create_default_role = true
   auto_create_admin_role   = true

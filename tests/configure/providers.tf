@@ -11,25 +11,25 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "setup" {
+data "terraform_remote_state" "infrastructure" {
   backend = "remote"
 
   config = {
     organization = var.tfc_organization
     workspaces = {
-      name = "terraform-aws-postgres-test-setup"
+      name = "terraform-aws-postgres-waypoint-test-setup"
     }
   }
 }
 
 provider "boundary" {
-  addr                   = data.terraform_remote_state.setup.outputs.boundary.address
-  auth_method_login_name = data.terraform_remote_state.setup.outputs.boundary.username
-  auth_method_password   = data.terraform_remote_state.setup.outputs.boundary.password
+  addr                   = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_endpoint
+  auth_method_login_name = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_username
+  auth_method_password   = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_password
 }
 
 provider "vault" {
-  address   = data.terraform_remote_state.setup.outputs.vault.address
-  token     = data.terraform_remote_state.setup.outputs.vault.token
-  namespace = data.terraform_remote_state.setup.outputs.vault.namespace
+  address   = data.terraform_remote_state.infrastructure.outputs.hcp_vault_public_address
+  token     = data.terraform_remote_state.infrastructure.outputs.hcp_vault_token
+  namespace = data.terraform_remote_state.infrastructure.outputs.hcp_vault_namespace
 }
