@@ -1,7 +1,9 @@
 variables {
-  business_unit = "modules"
-  environment   = "dev"
-  db_name       = "test"
+  business_unit                = "modules"
+  environment                  = "dev"
+  db_name                      = "test"
+  tfc_workspace_infrastructure = "terraform-aws-postgres-waypoint-test-setup"
+  tfc_workspace_boundary       = "terraform-aws-postgres-waypoint-test-configure"
 }
 
 provider "aws" {

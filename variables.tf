@@ -52,11 +52,6 @@ locals {
   # boundary_scope_id = data.terraform_remote_state.boundary.outputs.products_infra_scope_id
 }
 
-variable "boundary_scope_id" {
-  type        = string
-  description = "Boundary scope ID for setting up target to database"
-}
-
 variable "postgres_db_version" {
   type        = string
   default     = "13.11"
