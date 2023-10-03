@@ -85,6 +85,11 @@ variable "db_name" {
   description = "Database name to create in instance"
 }
 
+variable "db_subnet_group_name" {
+  type        = string
+  description = "Database subnet group name"
+}
+
 variable "vault_kubernetes_auth_path" {
   type        = string
   description = "Vault Kubernetes auth path"
@@ -97,5 +102,5 @@ locals {
     Automation    = "terraform"
     Business_Unit = var.business_unit
   }
-  db_subnet_group_name = var.business_unit
+  db_subnet_group_name = var.db_subnet_group_name
 }
