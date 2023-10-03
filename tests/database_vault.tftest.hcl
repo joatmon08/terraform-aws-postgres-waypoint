@@ -1,4 +1,5 @@
 variables {
+  db_subnet_group_name         = "modules"
   business_unit                = "modules"
   environment                  = "dev"
   db_name                      = "test"
@@ -34,6 +35,11 @@ run "database" {
   assert {
     condition     = aws_db_instance.database.manage_master_user_password == null
     error_message = "Database password should be stored in Vault and not managed by AWS"
+  }
+
+  assert {
+    condition     = length(aws_db_instance.database.vpc_security_group_ids) > 0
+    error_message = "VPC security groups should be added"
   }
 }
 
