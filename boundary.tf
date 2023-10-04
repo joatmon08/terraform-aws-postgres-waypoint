@@ -1,6 +1,6 @@
 resource "boundary_host_catalog_static" "database" {
-  name        = "${var.business_unit}-database"
-  description = "${var.business_unit} database"
+  name        = "database"
+  description = "Database"
   scope_id    = local.boundary_scope_id
 }
 
@@ -26,10 +26,21 @@ resource "boundary_target" "database" {
   description              = "${var.business_unit} Database Postgres Target"
   scope_id                 = local.boundary_scope_id
   ingress_worker_filter    = "\"rds\" in \"/tags/type\""
-  egress_worker_filter     = "\"${var.db_subnet_group_name}\" in \"/tags/type\""
+  egress_worker_filter     = "\"${var.org_name}\" in \"/tags/type\""
   session_connection_limit = 2
   default_port             = 5432
   host_source_ids = [
     boundary_host_set_static.database.id
   ]
+  brokered_credential_source_ids = [
+    boundary_credential_library_vault.database.id
+  ]
+}
+
+resource "boundary_credential_library_vault" "database" {
+  name                = "vault-database-${var.business_unit}"
+  description         = "Credential library for ${var.business_unit} databases"
+  credential_store_id = local.boundary_credentials_store_id
+  path                = "${vault_kv_secret_v2.postgres.mount}/data/${vault_kv_secret_v2.postgres.name}"
+  http_method         = "GET"
 }

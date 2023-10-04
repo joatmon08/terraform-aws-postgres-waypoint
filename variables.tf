@@ -16,6 +16,12 @@ variable "tfc_workspace_boundary" {
   default     = "boundary-setup"
 }
 
+variable "tfc_workspace_applications" {
+  type        = string
+  description = "TFC Workspace with application setup resources"
+  default     = "vault-applications"
+}
+
 data "terraform_remote_state" "infrastructure" {
   backend = "remote"
   config = {
@@ -36,6 +42,16 @@ data "terraform_remote_state" "boundary" {
   }
 }
 
+data "terraform_remote_state" "applications" {
+  backend = "remote"
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
+      name = var.tfc_workspace_applications
+    }
+  }
+}
+
 locals {
   boundary_address  = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_endpoint
   boundary_username = data.terraform_remote_state.infrastructure.outputs.hcp_boundary_username
@@ -49,7 +65,8 @@ locals {
   vault_namespace = data.terraform_remote_state.infrastructure.outputs.hcp_vault_namespace
   vault_token     = data.terraform_remote_state.infrastructure.outputs.hcp_vault_token
 
-  boundary_scope_id = data.terraform_remote_state.boundary.outputs.products_infra_scope_id
+  boundary_scope_id             = data.terraform_remote_state.applications.outputs.boundary_scope_ids[var.business_unit]
+  boundary_credentials_store_id = data.terraform_remote_state.applications.outputs.boundary_credentials_store_ids[var.business_unit]
 }
 
 variable "postgres_db_version" {
@@ -85,9 +102,9 @@ variable "db_name" {
   description = "Database name to create in instance"
 }
 
-variable "db_subnet_group_name" {
+variable "org_name" {
   type        = string
-  description = "Database subnet group name"
+  description = "Org name. Also used as db subnet group name"
 }
 
 variable "vault_kubernetes_auth_path" {
@@ -96,11 +113,17 @@ variable "vault_kubernetes_auth_path" {
   default     = "kubernetes"
 }
 
+variable "additional_service_account_names" {
+  type        = list(string)
+  description = "Additional service account names to allow access to database credentials"
+  default     = []
+}
+
 locals {
   tags = {
     Environment   = var.environment
     Automation    = "terraform"
     Business_Unit = var.business_unit
   }
-  db_subnet_group_name = var.db_subnet_group_name
+  db_subnet_group_name = var.org_name
 }

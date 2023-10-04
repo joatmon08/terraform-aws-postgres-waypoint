@@ -1,10 +1,11 @@
 variables {
-  db_subnet_group_name         = "modules"
   business_unit                = "modules"
+  org_name                     = "modules"
   environment                  = "dev"
   db_name                      = "test"
   tfc_workspace_infrastructure = "terraform-aws-postgres-waypoint-test-setup"
   tfc_workspace_boundary       = "terraform-aws-postgres-waypoint-test-configure"
+  tfc_workspace_applications   = "terraform-aws-postgres-waypoint-test-configure"
 }
 
 provider "aws" {
