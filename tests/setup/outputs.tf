@@ -56,3 +56,7 @@ output "hcp_vault_token" {
 output "name" {
   value = var.name
 }
+
+output "eks_cluster_id" {
+  value = module.eks.cluster_name
+}
