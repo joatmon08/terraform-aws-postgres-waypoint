@@ -1,7 +1,7 @@
 variable "tfc_organization" {
   type        = string
   description = "TFC Organization with infrastructure resources"
-  default     = "tpmm-org-platform-engineering"
+  default     = "hashicorp-stack-demoapp"
 }
 
 variable "tfc_workspace_infrastructure" {
@@ -19,7 +19,7 @@ variable "tfc_workspace_boundary" {
 variable "tfc_workspace_applications" {
   type        = string
   description = "TFC Workspace with application setup resources"
-  default     = "vault-applications"
+  default     = "applications"
 }
 
 data "terraform_remote_state" "infrastructure" {
