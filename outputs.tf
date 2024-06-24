@@ -1,15 +1,19 @@
-output "product_database_address" {
-  value = aws_db_instance.database.address
+output "database_address" {
+  value       = aws_db_instance.database.address
+  description = "Address of database"
+}
+
+output "database_name" {
+  value       = aws_db_instance.database.db_name
+  description = "Database name"
 }
 
 output "boundary_target_id_admin" {
-  value = boundary_target.database_admin.id
+  value       = boundary_target.database_admin.id
+  description = "Boundary target ID for database"
 }
 
 output "boundary_target_id_app" {
-  value = boundary_target.database_app.id
-}
-
-output "ecr_repository" {
-  value = aws_ecr_repository.module.repository_url
+  value       = boundary_target.database_app.id
+  description = "Boundary target ID for application"
 }

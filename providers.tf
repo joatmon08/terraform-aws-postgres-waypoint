@@ -4,23 +4,23 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.0"
+      version = ">= 5.55"
     }
     boundary = {
       source  = "hashicorp/boundary"
-      version = ">= 1.0"
+      version = ">= 1.1"
     }
     vault = {
       source  = "hashicorp/vault"
-      version = ">= 3.20"
+      version = ">= 4.3"
     }
     consul = {
       source  = "hashicorp/consul"
-      version = ">= 2.18"
+      version = ">= 2.20"
     }
     hcp = {
       source  = "hashicorp/hcp"
-      version = ">= 0.72"
+      version = ">= 0.92"
     }
   }
 }
